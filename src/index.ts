@@ -8,6 +8,9 @@ import helmet from "helmet";
 import authRoutes from "./routes/auth";
 import dbConnection from "./database/dbConn";
 
+import { errorHandler } from "./middlewares/http/error.middleware";
+import { notFoundHandler } from "./middlewares/http/notFound.middleware";
+
 dotenv.config({ path: "./utils/config.env" });
 
 dbConnection();
@@ -24,6 +27,10 @@ app.use(json());
 
 // routes
 app.use("/api", authRoutes);
+
+// http errors
+// app.use(errorHandler);
+// app.use(notFoundHandler);
 
 const PORT: number = Number(process.env.PORT) || 7000;
 app.listen(PORT, () => {
